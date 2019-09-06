@@ -41,8 +41,12 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the duke attribute of Main Window.
+     */
     public void setDuke(Duke d) {
         duke = d;
+        duke.load();
     }
 
     /**
@@ -54,11 +58,6 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         var db = DialogBox.getDukeDialog(response, dukeImage);
-        if (input.equals("list") || input.split(" ")[0].equals("find")) {
-            db.setMinHeight(190.0);
-        } else {
-            db.setMinHeight(90.0);
-        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage), db);
         userInput.clear();
