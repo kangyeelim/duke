@@ -68,160 +68,6 @@ public class Ui {
     }
 
     /**
-     * Checks the exception for delete commands.
-     * Throws DukeException when the command is intended to delete a task but is
-     * incorrectly inputted by the user.
-     *
-     * @param command String of command that user input.
-     * @param tasks TaskList of all the tasks currently.
-     * @throws DukeException If there is a incorrectly inputted user command
-     * that is intended to delete task.
-     */
-    public void checkErrorForDeleteCommand(String command, TaskList tasks) throws DukeException {
-        if (command.contains(" ")) {
-            //throw exception for no task number and there is just trailing whitespaces
-            String res = command.replace(" ", "");
-            if (res.length() == 6) {
-                throw new DukeException("\u2639 OOPS!!! Please input the task number you would like to delete.\n");
-            }
-        } else if (command.length() == 6) {
-            //throw exception for no task number
-            throw new DukeException("\u2639 OOPS!!! Please input the task number you would like to delete.\n");
-        }
-        int curr = Parser.taskToDelete(command);
-        if (tasks.size() == 0) {
-            //check if list has no task to throw exception
-            throw new DukeException("\u2639 OOPS!!! You do not have any tasks in your list.\n");
-        } else if (curr > tasks.size()) {
-            //check if index is within list size or throw exception
-            throw new DukeException("\u2639 OOPS!!! You do not have that task in your list. "
-                    + "Call 'list' to see all your tasks :-)\n");
-        }
-    }
-
-    /**
-     * Checks the exception for todo commands.
-     * Throws DukeException when the command is intended create a todo task but is
-     * incorrectly inputted by the user.
-     *
-     * @param command String of command that user input.
-     * @param tasks TaskList of all the tasks currently.
-     * @throws DukeException If there is a incorrectly inputted user command
-     * that is intended to create a todo task.
-     */
-    public void checkErrorForTodoCommand(String command, TaskList tasks) throws DukeException {
-        if (command.length() == 4) {
-            //throw exception for no description
-            String error = "\u2639 OOPS!!! The description of todo cannot be empty.\n";
-            throw new DukeException(error);
-        } else if (!command.substring(4,5).equals(" ")) {
-            //throw exception for no description and there is just trailing whitespaces
-            String error = "\u2639 OOPS!!! Please input a whitespace between the command 'todo' "
-                    +"and your task description for me to keep track of it correctly :-)\n";
-            throw new DukeException(error);
-        } else if (command.contains(" ")) {
-            String res = command.replaceAll(" ", "");
-            if (res.length() == 4) {
-                String error = "\u2639 OOPS!!! The description of todo cannot be empty.\n";
-                throw new DukeException(error);
-            }
-        }
-    }
-
-    /**
-     * Checks the exception for event commands.
-     * Throws DukeException when the command is intended to create an event task but is
-     * incorrectly inputted by the user.
-     *
-     * @param command String of command that user input.
-     * @param tasks TaskList of all the tasks currently.
-     * @throws DukeException If there is a incorrectly inputted user command
-     * that is intended to create an event task.
-     */
-    public void checkErrorForEventCommand(String command, TaskList tasks) throws DukeException {
-        if (command.length() == 5) {
-            //throw exception for no description
-            String error = "\u2639 OOPS!!! The description of event cannot be empty.\n";
-            throw new DukeException(error);
-        } else if (!command.substring(5,6).equals(" ")) {
-            //throw exception for no whitespace after event
-            String error = "\u2639 OOPS!!! Please input a whitespace between the command 'event' "
-                    + "and your task description for me to keep track of it correctly :-)\n";
-            throw new DukeException(error);
-        } else if (command.contains(" ")) {
-            //throw exception for no description and there is just trailing whitespaces
-            String res = command.replaceAll(" ", "");
-            if (res.length() == 5) {
-                String error = "\u2639 OOPS!!! The description of event cannot be empty.\n";
-                throw new DukeException(error);
-            }
-        }
-        if (!command.contains(" /at ") && command.contains("/at")) {
-            //throw exception for wrong user input syntax for incorrect whitespaces for /at
-            String error = "\u2639 OOPS!!! Please input a whitespace before and after '/at' for me "
-                    + "to keep track of the date/time correctly :-)\n";
-            throw new DukeException(error);
-        } else if (!command.contains(" /at ")) {
-            //throw exception for no /at
-            String error = "\u2639 OOPS!!! You would need to schedule a date and time duration for"
-                    + "this event using '/at'.\n";
-            throw new DukeException(error);
-        } else if (command.contains(" /at ")) {
-            String[] arr = command.split(" /at ", 2);
-            if (arr[0].length() == 5) {
-                String error = "\u2639 OOPS!!! The description of event cannot be empty.\n";
-                throw new DukeException(error);
-            }
-        }
-    }
-
-    /**
-     * Checks the exception for deadline commands.
-     * Throws DukeException when the command is intended to create a deadline task but is
-     * incorrectly inputted by the user.
-     *
-     * @param command String of command that user input.
-     * @param tasks TaskList of all the tasks currently.
-     * @throws DukeException If there is a incorrectly inputted user command
-     * that is intended to create a deadline task.
-     */
-    public void checkErrorForDeadlineCommand(String command, TaskList tasks) throws DukeException {
-        if (command.length() == 8) {
-            //throw exception for no description
-            String error = "\u2639 OOPS!!! The description of deadline cannot be empty.\n";
-            throw new DukeException(error);
-        } else if (!command.substring(8, 9).equals(" ")) {
-            //throw exception for no whitespace after deadline
-            String error = "\u2639 OOPS!!! Please input a whitespace between the command 'deadline' "
-                    + "and your task description for me to keep track of it correctly :-)\n";
-            throw new DukeException(error);
-        } else if (command.contains(" ")) {
-            // throw exception for no description and there is just trailing whitespaces
-            String res = command.replaceAll(" ", "");
-            if (res.length() == 8) {
-                String error = "\u2639 OOPS!!! The description of deadline cannot be empty.\n";
-                throw new DukeException(error);
-            }
-        }
-        if (!command.contains(" /by ") && command.contains("/by")) {
-            //throw exception for incorrect whitespaces for /by
-            String error = "\u2639 OOPS!!! Please input a whitespace before and after '/by' for me to "
-                    + "keep track of the date/time correctly :-)\n";
-            throw new DukeException(error);
-        } else if (!command.contains(" /by ")) {
-            //throw exception for no /by
-            String error = "\u2639 OOPS!!! You would need to schedule a date/time for this deadline using '/by'.\n";
-            throw new DukeException(error);
-        } else if (command.contains(" /by ")) {
-            String[] arr = command.split(" /by ", 2);
-            if (arr[0].length() == 8) {
-                String error = "\u2639 OOPS!!! The description of deadline cannot be empty.\n";
-                throw new DukeException(error);
-            }
-        }
-    }
-
-    /**
      * Returns the message of the task and its information that is added to the list
      * of tasks.
      *
@@ -231,38 +77,6 @@ public class Ui {
     public String printAddedTask(Task task) {
         String commandMsg = "Got it. I've added this task:\n" + task;
         return commandMsg;
-    }
-
-    /**
-     * Checks the exception for mark as done commands.
-     * Throws DukeException when the command is intended to mark a task as done but is
-     * incorrectly inputted by the user.
-     *
-     * @param command String of command that user input.
-     * @param tasks TaskList of all the tasks currently.
-     * @throws DukeException If there is a incorrectly inputted user command
-     * that is intended to mark a task as done.
-     */
-    public void checkMarkDoneError(String command, TaskList tasks) throws DukeException {
-        if (command.contains(" ")) {
-            //throw exception for no task number and there is just trailing whitespaces
-            String res = command.replace(" ", "");
-            if (res.length() == 4) {
-                String error = "\u2639 OOPS!!! Please input the task number you would like to mark as done.\n";
-                throw new DukeException(error);
-            }
-        } else if (command.length() == 4) {
-            //throw exception for no task number
-            String error = "\u2639 OOPS!!! Please input the task number you would like to mark as done.\n";
-            throw new DukeException(error);
-        }
-        int curr = Parser.taskToMarkDone(command);
-        if (curr > tasks.size()) {
-            //check if index is within list size or throw exception
-            String error = "\u2639 OOPS!!! You do not have that task in your list. " +
-                    "Call 'list' to see all your tasks :-)\n";
-            throw new DukeException(error);
-        }
     }
 
     /**
@@ -340,24 +154,107 @@ public class Ui {
     }
 
     /**
-     * Checks the exception for find commands.
-     * Throws DukeException when the command is intended to find a task but is
-     * incorrectly inputted by the user.
+     * Returns message of that there is no task number inputted.
      *
-     * @param command String of command that user input.
-     * @throws DukeException If there is a incorrectly inputted user command
-     * that is intended to find a task with a keyword.
+     * @return String of message.
      */
-    public void checkErrorForFindCommand(String command) throws DukeException {
-        if (command.contains(" ")) {
-            //throw exception for no task number and there is just trailing whitespaces
-            String res = command.replace(" ", "");
-            if (res.length() == 4) {
-                throw new DukeException("\u2639 OOPS!!! Please input the keyword for me to search in the list.\n");
-            }
-        } else if (command.length() == 4) {
-            //throw exception for no task number
-            throw new DukeException("\u2639 OOPS!!! Please input the keyword for me to search in the list.\n");
+    public String showNoTaskNumber() {
+        String error = "\u2639 OOPS!!! Please input the task number you would like to mark as done.\n";
+        return error;
+    }
+
+    /**
+     * Returns message of that there is no such task according to task number inputted.
+     *
+     * @return String of message.
+     */
+    public String showNoSuchTask() {
+        String error = "\u2639 OOPS!!! You do not have that task in your list. " +
+                "Call 'list' to see all your tasks :-)\n";
+        return error;
+    }
+
+    /**
+     * Returns message of that there is no keyword inputted.
+     *
+     * @return String of message.
+     */
+    public String showNoFindKeyword() {
+        String error = "\u2639 OOPS!!! Please input the keyword for me to search in the list.\n";
+        return error;
+    }
+
+    /**
+     * Returns message of that there is no description inputted for inputted task command.
+     *
+     * @param taskType String of the type of task.
+     * @return String of message.
+     */
+    public String showNoDescription(String taskType) {
+        String error = "\u2639 OOPS!!! The description of '" + taskType + "' cannot be empty.\n";
+        return error;
+    }
+
+    /**
+     * Returns message of that there is wrong whitespace input for description.
+     *
+     * @param taskType String of the type of task.
+     * @return String of message.
+     */
+    public String showNoWhitespaceForDescription(String taskType) {
+        String error = "\u2639 OOPS!!! Please input a whitespace between the command '" + taskType +
+                "' and your task description for me to keep track of it correctly :-)\n";
+        return error;
+    }
+
+    /**
+     * Returns message of that there is no date inputted for task.
+     *
+     * @param taskType String of the type of task.
+     * @return String of message.
+     */
+    public String showNoDate(String taskType) {
+        if (taskType.equals("event")) {
+            String error = "\u2639 OOPS!!! You would need to schedule a date and time duration for"
+                    + "this " + taskType + " using '/at'.\n";
+            return error;
+        } else if (taskType.equals("deadline")) {
+            String error = "\u2639 OOPS!!! You would need to schedule a date and time duration for"
+                    + "this " + taskType + " using '/by'.\n";
+            return error;
+        } else {
+            return "error with input";
         }
+
+    }
+
+    /**
+     * Returns message of that there is wrong whitespace input for date/time.
+     *
+     * @param taskType String of the type of task.
+     * @return String of message.
+     */
+    public String showNoWhitespaceForDate(String taskType) {
+        if (taskType.equals("event")) {
+            String error = "\u2639 OOPS!!! Please input a whitespace before and after '/at' for me "
+                    + "to keep track of the date/time correctly :-)\n";
+            return error;
+        } else if (taskType.equals("deadline")) {
+            String error = "\u2639 OOPS!!! Please input a whitespace before and after '/by' for me "
+                    + "to keep track of the date/time correctly :-)\n";
+            return error;
+        } else {
+            return "error with input";
+        }
+    }
+
+    /**
+     * Returns message of that there is no task in the list.
+     *
+     * @return String of message.
+     */
+    public String showNoTaskInList() {
+        String error = "\u2639 OOPS!!! You do not have any tasks in your list.\n";
+        return error;
     }
 }

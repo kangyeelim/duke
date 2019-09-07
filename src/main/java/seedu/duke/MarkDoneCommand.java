@@ -28,7 +28,7 @@ public class MarkDoneCommand extends Command {
      * @throws Exception If unable to overwrite data file.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        ui.checkMarkDoneError(command, tasks);
+        Parser.checkMarkDoneError(command, tasks, ui);
         int curr = Parser.taskToMarkDone(command);
         tasks.get(curr - 1).markAsDone();
         assert curr > 0 : "task number invalid";

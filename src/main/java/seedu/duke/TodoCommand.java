@@ -28,7 +28,7 @@ public class TodoCommand extends Command {
      * @throws Exception Exception for being unable to append to data file.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        ui.checkErrorForTodoCommand(command, tasks);
+        Parser.checkErrorForTodoCommand(command, tasks, ui);
         tasks.add(Parser.createTodo(command));
         assert tasks.size() > 0 : "tasks size invalid";
         storage.appendFile(tasks);

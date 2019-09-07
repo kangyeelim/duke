@@ -28,7 +28,7 @@ public class DeadlineCommand extends Command {
      * @throws Exception If unable to append to data file.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        ui.checkErrorForDeadlineCommand(command, tasks);
+        Parser.checkErrorForDeadlineCommand(command, tasks, ui);
         tasks.add(Parser.createDeadline(command));
 
         storage.appendFile(tasks);

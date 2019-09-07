@@ -28,7 +28,7 @@ public class EventCommand extends Command {
      * @throws Exception Exception for being unable to append to data file.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        ui.checkErrorForEventCommand(command, tasks);
+        Parser.checkErrorForEventCommand(command, tasks, ui);
         tasks.add(Parser.createEvent(command));
         assert tasks.size() > 0 : "tasks size invalid";
         storage.appendFile(tasks);

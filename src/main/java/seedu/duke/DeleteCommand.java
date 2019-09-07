@@ -27,8 +27,7 @@ public class DeleteCommand extends Command {
      * @throws Exception If unable to overwrite data file
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        //deleting task
-        ui.checkErrorForDeleteCommand(command, tasks);
+        Parser.checkErrorForDeleteCommand(command, tasks, ui);
         int curr = Parser.taskToDelete(command);
         assert curr > 0 : "Task num is not valid";
         Task deletedTask = tasks.get(curr - 1);

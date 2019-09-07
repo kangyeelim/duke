@@ -34,7 +34,7 @@ public class FindCommand extends Command {
      * @throws DukeException Exception for incorrect user input.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        ui.checkErrorForFindCommand(command);
+        Parser.checkErrorForFindCommand(command, ui);
         String keyword = Parser.getKeyword(command);
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Event) {
