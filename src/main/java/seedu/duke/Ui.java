@@ -19,7 +19,8 @@ public class Ui {
      */
     public String showIntro() {
         String greeting = "Hello! I'm Duke\n"
-                + "What can I do for you?\n";
+                + "What can I do for you?\n"
+                +  "Enter 'help' if you need help on how to use me.\n";
         return greeting;
     }
 

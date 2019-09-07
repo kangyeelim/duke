@@ -247,6 +247,8 @@ public class Parser {
     public static Command parse(String command, Ui ui) throws DukeException {
         if (Parser.isByeCommand(command)) {
             return new ByeCommand(command);
+        } else if (Parser.isHelpCommand(command)) {
+            return new HelpCommand();
         }else if (Parser.isDeleteExpenseCommand(command)) {
             return new DeleteExpenseCommand(command);
         } else if (Parser.isDeleteCommand(command)) {
@@ -531,5 +533,9 @@ public class Parser {
 
     public static boolean isDeleteExpenseCommand(String command) {
         return command.length() >= 8 && command.contains("delete e");
+    }
+
+    public static boolean isHelpCommand(String command) {
+        return command.length() == 4 && command.equals("help");
     }
 }
