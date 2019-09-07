@@ -31,7 +31,7 @@ public class MarkDoneCommand extends Command {
         ui.checkMarkDoneError(command, tasks);
         int curr = Parser.taskToMarkDone(command);
         tasks.get(curr - 1).markAsDone();
-
+        assert curr > 0 : "task number invalid";
         storage.writeFile(tasks);
         return ui.printMarkDoneMsg(tasks.get(curr - 1));
     }

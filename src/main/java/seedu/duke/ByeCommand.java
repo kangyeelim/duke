@@ -25,7 +25,7 @@ public class ByeCommand extends Command {
      * @param storage Storage to write/load/append to data file after updating tasks.
      * @return String of goodbye message.
      */
-    public String  execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         this.ui = ui;
         return ui.printGoodbyeMsg();
     }

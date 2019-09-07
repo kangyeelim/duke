@@ -54,6 +54,7 @@ public class Parser {
      */
     public static Task readInFileLine(String line) throws ParseException {
         String[] stringArr = line.split(" [|] ", 0);
+        assert line.length() > 0 : "file path invalid";
         if (stringArr[0].equals("E")) {
             String[] dateTimeArr = (stringArr[3]).split(" ", 2);
             Date date = toDate(dateTimeArr[0]);
@@ -140,6 +141,7 @@ public class Parser {
      * @throws ParseException If the date or time input of the user is incorrect.
      */
     public static Event createEvent(String command) throws ParseException {
+        assert command.contains("/at") : "event command invalid";
         String[] arr = command.split(" /at ", 2);
         String[] dateTimeArr = (arr[1]).split(" ", 2);
         Date date, time;
@@ -175,6 +177,7 @@ public class Parser {
      * @throws ParseException If the date or time input of the user is incorrect.
      */
     public static Deadline createDeadline(String command) throws ParseException {
+        assert command.contains("/by") : "deadline command invalid";
         String[] arr = command.split(" /by ", 2);
         String[] dateTimeArr = (arr[1]).split(" ", 2);
         //throw error if user never input time or date
@@ -209,6 +212,7 @@ public class Parser {
      * @return Integer index of the task to be marked as done.
      */
     public static int taskToMarkDone(String command) {
+        assert command.substring(0, 4).equals("done") : "done command invalid";
         int curr = Integer.parseInt(command.substring(5));
         return curr;
     }
@@ -235,31 +239,20 @@ public class Parser {
     public static Command parse(String command, Ui ui) throws DukeException {
         if (command.equals("bye")) {
             return new ByeCommand(command);
-        }
-        if (command.length() < 4) {
-            throw new DukeException(ui.noSuchCommand());
-        }
-        if (Parser.isDeleteCommand(command)) {
+        } else if (Parser.isDeleteCommand(command)) {
             return new DeleteCommand(command);
-        } else if (!Parser.isListCommand(command) && !Parser.isMarkDone(command) && !Parser.isFindCommand(command)) {
-            if (Parser.isTodo(command)) {
-               return new TodoCommand(command);
-            } else if (Parser.isEvent(command)) {
-               return new EventCommand(command);
-            } else if (Parser.isDeadline(command)) {
-                return new DeadlineCommand(command);
-            } else {
-                //throw exception for wrong command
-                throw new DukeException(ui.noSuchCommand());
-            }
         } else if (Parser.isMarkDone(command)) {
-        //marking task as done
             return new MarkDoneCommand(command);
         } else if (Parser.isListCommand(command)) {
-            //listing tasks out
             return new ListCommand(command);
         } else if (Parser.isFindCommand(command)) {
             return new FindCommand(command);
+        } else if (Parser.isTodo(command)) {
+            return new TodoCommand(command);
+        } else if (Parser.isEvent(command)) {
+            return new EventCommand(command);
+        } else if (Parser.isDeadline(command)) {
+            return new DeadlineCommand(command);
         } else {
             throw new DukeException(ui.noSuchCommand());
         }

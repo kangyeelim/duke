@@ -30,11 +30,11 @@ public class DeleteCommand extends Command {
         //deleting task
         ui.checkErrorForDeleteCommand(command, tasks);
         int curr = Parser.taskToDelete(command);
+        assert curr > 0 : "Task num is not valid";
+        Task deletedTask = tasks.get(curr - 1);
         tasks.remove(curr - 1);
-
-        //write 'tasks' into data file, overwriting all contents
         storage.writeFile(tasks);
-        return ui.printDeletedTaskMsg(tasks.get(curr - 1)) + "\n" +
+        return ui.printDeletedTaskMsg(deletedTask) + "\n" +
             ui.printNoOfTaskInList(tasks);
     }
 

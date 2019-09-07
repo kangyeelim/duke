@@ -61,7 +61,6 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        //db.setMinHeight(80.0);
         return db;
     }
 

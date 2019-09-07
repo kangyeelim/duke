@@ -32,7 +32,6 @@ public class Storage {
      * In addition, if the format of the tasks in the data file is incorrect.
      */
     public ArrayList<Task> load() throws Exception {
-        //return array after reading from file
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filepath);
         f.getParentFile().mkdirs();

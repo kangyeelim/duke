@@ -30,7 +30,7 @@ public class TodoCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         ui.checkErrorForTodoCommand(command, tasks);
         tasks.add(Parser.createTodo(command));
-
+        assert tasks.size() > 0 : "tasks size invalid";
         storage.appendFile(tasks);
         return ui.printAddedTask(tasks.get(tasks.size() - 1)) + "\n" +
             ui.printNoOfTaskInList(tasks);

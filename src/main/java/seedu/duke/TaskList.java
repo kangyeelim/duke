@@ -53,6 +53,7 @@ public class TaskList {
      * @param index Index of task to remove from list.
      */
     public void remove(int index) {
+        assert index >= 0 : "Invalid task number";
         (this.arr).remove(index);
     }
 

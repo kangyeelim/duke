@@ -32,6 +32,7 @@ public class DeadlineCommand extends Command {
         tasks.add(Parser.createDeadline(command));
 
         storage.appendFile(tasks);
+        assert tasks.size() >= 1 : "Task size invalid";
         return ui.printAddedTask(tasks.get(tasks.size() - 1)) + "\n" +
             ui.printNoOfTaskInList(tasks);
     }

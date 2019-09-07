@@ -33,8 +33,7 @@ public class Duke {
      */
     public String run(String input) {
         try {
-            String fullCommand = input;
-            Command c = Parser.parse(fullCommand, ui);
+            Command c = Parser.parse(input, ui);
             return c.execute(tasks, ui, storage);
         } catch (DukeException e) {
             return e.toString();
