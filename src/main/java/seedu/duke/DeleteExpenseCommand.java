@@ -2,7 +2,7 @@ package seedu.duke;
 
 public class DeleteExpenseCommand extends Command {
     private String command;
-    private static final String LIST_TYPE = "EXPENSE";
+    private static final String LIST_TYPE = "expense";
 
     /**
      * Class constructor.
@@ -18,7 +18,6 @@ public class DeleteExpenseCommand extends Command {
 
     public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
         //Parser.checkErrorForDeleteExpenseCommand(command, expenses, ui);
-        System.out.println("inside delete expense execute");
         int curr = Parser.expenseToDelete(command);
         assert curr > 0 : "Task num is not valid";
         Expense deletedExpense = expenses.get(curr - 1);

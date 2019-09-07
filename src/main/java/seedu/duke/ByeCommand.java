@@ -7,6 +7,7 @@ package seedu.duke;
 public class ByeCommand extends Command {
     private String command;
     private Ui ui;
+    private static final String LIST_TYPE = "any";
 
     /**
      * Class constructor.
@@ -42,6 +43,10 @@ public class ByeCommand extends Command {
      */
     public boolean isExit() {
         return true;
+    }
+
+    public String getListType() {
+        return LIST_TYPE;
     }
 
     /**

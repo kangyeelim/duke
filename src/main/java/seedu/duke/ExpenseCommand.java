@@ -2,7 +2,7 @@ package seedu.duke;
 
 public class ExpenseCommand extends Command{
     protected String command;
-    private static final String LIST_TYPE = "EXPENSE";
+    private static final String LIST_TYPE = "expense";
 
     public ExpenseCommand(String command) {
         this.command = command;

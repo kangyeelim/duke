@@ -248,7 +248,6 @@ public class Parser {
         if (Parser.isByeCommand(command)) {
             return new ByeCommand(command);
         }else if (Parser.isDeleteExpenseCommand(command)) {
-            System.out.println("parser line 269");
             return new DeleteExpenseCommand(command);
         } else if (Parser.isDeleteCommand(command)) {
             return new DeleteCommand(command);
@@ -527,7 +526,6 @@ public class Parser {
     }
 
     public static int expenseToDelete(String command) {
-        System.out.println(Integer.parseInt(command.substring(8)));
         return Integer.parseInt(command.substring(8));
     }
 
