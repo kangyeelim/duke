@@ -8,7 +8,7 @@ public class StorageStub extends Storage {
     }
 
     @Override
-    public ArrayList<Task> load() {
+    public ArrayList<Task> loadTaskFile() {
         ArrayList<Task> arr = new ArrayList<>();
         arr.add(new Todo("abc"));
         arr.add(new Todo("def"));

@@ -13,6 +13,7 @@ public class FindCommand extends Command {
     protected TaskList matchList;
     protected DateFormat outDateFormat = new SimpleDateFormat( "dd/MM/yyyy");
     protected DateFormat outTimeFormat = new SimpleDateFormat("H.mm aa");
+    private static final String LIST_TYPE = "task";
 
     /**
      * Class constructor.
@@ -65,6 +66,10 @@ public class FindCommand extends Command {
         return ui.printAllMatchingTasks(matchList);
     }
 
+    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
+        return null;
+    }
+
     /**
      * Returns tasklist of all tasks currently that match the keyword.
      *
@@ -81,5 +86,9 @@ public class FindCommand extends Command {
      */
     public boolean isExit() {
         return false;
+    }
+
+    public String getListType() {
+        return LIST_TYPE;
     }
 }

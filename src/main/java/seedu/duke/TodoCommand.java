@@ -6,7 +6,7 @@ package seedu.duke;
  */
 public class TodoCommand extends Command {
     private String command;
-
+    private static final String LIST_TYPE = "task";
     /**
      * Class constructor.
      *
@@ -31,9 +31,17 @@ public class TodoCommand extends Command {
         Parser.checkErrorForTodoCommand(command, tasks, ui);
         tasks.add(Parser.createTodo(command));
         assert tasks.size() > 0 : "tasks size invalid";
-        storage.appendFile(tasks);
+        if (tasks.size() > 1) {
+            storage.appendFile(tasks);
+        } else {
+            storage.writeFile(tasks);
+        }
         return ui.printAddedTask(tasks.get(tasks.size() - 1)) + "\n" +
             ui.printNoOfTaskInList(tasks);
+    }
+
+    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
+        return null;
     }
 
     /**
@@ -43,6 +51,10 @@ public class TodoCommand extends Command {
      */
     public boolean isExit() {
         return false;
+    }
+
+    public String getListType() {
+        return LIST_TYPE;
     }
 
     /**

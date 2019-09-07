@@ -9,8 +9,10 @@ import java.text.ParseException;
  */
 public class Duke {
     private Storage storage;
+    private Storage expenseStorage;
     private TaskList tasks;
     private Ui ui;
+    private ExpenseList expenses;
 
     public Duke() {}
 
@@ -34,7 +36,7 @@ public class Duke {
     public String run(String input) {
         try {
             Command c = Parser.parse(input, ui);
-            return c.execute(tasks, ui, storage);
+            return execute(c);
         } catch (DukeException e) {
             return e.toString();
         } catch (ParseException e) {
@@ -52,11 +54,22 @@ public class Duke {
     public void load() {
         ui = new Ui();
         storage = new Storage("data/duke.txt");
+        expenseStorage = new Storage("data/expenses.txt");
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTaskFile());
+            expenses = new ExpenseList(expenseStorage.loadExpenseFile());
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
+            //expenses = new ExpenseList();
+        }
+    }
+
+    public String execute(Command c) throws Exception{
+        if (c.getListType().equals("expense"))  {
+            return c.execute(expenses, ui, expenseStorage);
+        } else {
+            return c.execute(tasks, ui, storage);
         }
     }
 }

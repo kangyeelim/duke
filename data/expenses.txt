@@ -1,0 +1,5 @@
+food: 120.0
+transportation: 55.0
+drinks: 20.0
+drink: 20.0
+bike: 120.0

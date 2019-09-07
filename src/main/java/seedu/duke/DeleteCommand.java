@@ -6,6 +6,7 @@ package seedu.duke;
  */
 public class DeleteCommand extends Command {
     private String command;
+    private static final String LIST_TYPE = "task";
 
     /**
      * Class constructor.
@@ -37,6 +38,10 @@ public class DeleteCommand extends Command {
             ui.printNoOfTaskInList(tasks);
     }
 
+    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
+        return null;
+    }
+
     /**
      * Returns false to continue Duke.
      *
@@ -44,6 +49,10 @@ public class DeleteCommand extends Command {
      */
     public boolean isExit() {
         return false;
+    }
+
+    public String getListType() {
+        return LIST_TYPE;
     }
 
     /**

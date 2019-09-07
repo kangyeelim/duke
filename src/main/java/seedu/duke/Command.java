@@ -25,10 +25,14 @@ public abstract class Command {
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
 
+    public abstract String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception;
+
     /**
      * Returns if duke should end.
      *
      * @return Boolean if duke should end.
      */
     public abstract boolean isExit();
+
+    public abstract String getListType();
 }

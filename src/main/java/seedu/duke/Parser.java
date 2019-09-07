@@ -22,6 +22,7 @@ public class Parser {
     private static final int CHAR_LENGTH_OF_DONE = 4;
     private static final int CHAR_LENGTH_OF_DELETE = 6;
     private static final int CHAR_LENGTH_OF_LIST = 4;
+    private static final int CHAR_LENGTH_OF_EXPENSE = 7;
     /**
      * Class constructor.
      */
@@ -62,7 +63,7 @@ public class Parser {
      */
     public static Task readInFileLine(String line) throws ParseException {
         String[] stringArr = line.split(" [|] ", 0);
-        assert line.length() > 0 : "file path invalid";
+        assert line.length() > 0 : "file path invalid in parser line 65";
         if (stringArr[0].equals("E")) {
             String[] dateTimeArr = (stringArr[3]).split(" ", 2);
             Date date = createDate(dateTimeArr[0]);
@@ -246,6 +247,9 @@ public class Parser {
     public static Command parse(String command, Ui ui) throws DukeException {
         if (Parser.isByeCommand(command)) {
             return new ByeCommand(command);
+        }else if (Parser.isDeleteExpenseCommand(command)) {
+            System.out.println("parser line 269");
+            return new DeleteExpenseCommand(command);
         } else if (Parser.isDeleteCommand(command)) {
             return new DeleteCommand(command);
         } else if (Parser.isMarkDone(command)) {
@@ -260,7 +264,11 @@ public class Parser {
             return new EventCommand(command);
         } else if (Parser.isDeadlineCommand(command)) {
             return new DeadlineCommand(command);
-        } else {
+        } else if (Parser.isExpenseCommand(command)) {
+            return new ExpenseCommand(command);
+        } else if (Parser.isEListCommand(command)) {
+            return new EListCommand(command);
+        }  else {
             throw new DukeException(ui.noSuchCommand());
         }
     }
@@ -475,5 +483,55 @@ public class Parser {
                 throw new DukeException(ui.showNoDescription("event"));
             }
         }
+    }
+
+    public static Expense createExpense(String command) {
+        String[] arr = command.split(" ");
+        double amount = Double.parseDouble(arr[2]);
+        Expense e = new Expense(arr[1], amount);
+        return e;
+    }
+
+    public static Expense readInExpenseFileLine(String line) {
+        String[] stringArr = line.split(": ", 0);
+        assert line.length() > 0 : "file path invalid in Parser line 493";
+        double amount = Double.parseDouble(stringArr[1]);
+        return new Expense(stringArr[0], amount);
+    }
+
+    public static boolean isExpenseCommand(String command) {
+        return command.length() >= 7 && command.contains("expense");
+    }
+
+    public static boolean isEListCommand(String command) {
+        return command.length() == 5 && command.equals("elist");
+    }
+
+    public static void checkErrorForExpenseCommand(String command, Ui ui, Storage storage) throws DukeException {
+        if (command.length() == CHAR_LENGTH_OF_EXPENSE) {
+            //throw exception for no description
+            throw new DukeException(ui.showNoDescription("expense"));
+        } else if (!command.substring(7, 8).equals(" ")) {
+            //throw exception for no whitespace after event
+            throw new DukeException(ui.showNoWhitespaceForExpenseDescription("expense"));
+        } else if (command.contains(" ")) {
+            //throw exception for no description and there is just trailing whitespaces
+            String res = command.replaceAll(" ", "");
+            String[] arr = command.split(" ", 2);
+            if (res.length() == CHAR_LENGTH_OF_EXPENSE) {
+                throw new DukeException(ui.showNoDescription("expense"));
+            } else if (!arr[1].contains(" ")) {
+                throw new DukeException(ui.showNoWhitespaceForAmount());
+            }
+        }
+    }
+
+    public static int expenseToDelete(String command) {
+        System.out.println(Integer.parseInt(command.substring(8)));
+        return Integer.parseInt(command.substring(8));
+    }
+
+    public static boolean isDeleteExpenseCommand(String command) {
+        return command.length() >= 8 && command.contains("delete e");
     }
 }

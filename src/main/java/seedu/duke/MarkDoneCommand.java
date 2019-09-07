@@ -6,6 +6,7 @@ package seedu.duke;
  */
 public class MarkDoneCommand extends Command {
     private String command;
+    private static final String LIST_TYPE = "task";
 
     /**
      * Class constructor.
@@ -36,6 +37,10 @@ public class MarkDoneCommand extends Command {
         return ui.printMarkDoneMsg(tasks.get(curr - 1));
     }
 
+    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
+        return null;
+    }
+
     /**
      * Returns false to continue Duke.
      *
@@ -43,6 +48,10 @@ public class MarkDoneCommand extends Command {
      */
     public boolean isExit() {
         return false;
+    }
+
+    public String getListType() {
+        return LIST_TYPE;
     }
 
     @Override

@@ -6,6 +6,7 @@ package seedu.duke;
  */
 public class EventCommand extends Command {
     private String command;
+    private static final String LIST_TYPE = "task";
 
     /**
      * Class constructor.
@@ -30,10 +31,18 @@ public class EventCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         Parser.checkErrorForEventCommand(command, tasks, ui);
         tasks.add(Parser.createEvent(command));
+        if (tasks.size() > 1) {
+            storage.appendFile(tasks);
+        } else {
+            storage.writeFile(tasks);
+        }
         assert tasks.size() > 0 : "tasks size invalid";
-        storage.appendFile(tasks);
         return ui.printAddedTask(tasks.get(tasks.size() - 1)) +"\n" +
             ui.printNoOfTaskInList(tasks);
+    }
+
+    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
+        return null;
     }
 
     /**
@@ -43,6 +52,10 @@ public class EventCommand extends Command {
      */
     public boolean isExit() {
         return false;
+    }
+
+    public String getListType() {
+        return LIST_TYPE;
     }
 
     /**

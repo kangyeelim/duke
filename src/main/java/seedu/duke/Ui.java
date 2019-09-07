@@ -257,4 +257,45 @@ public class Ui {
         String error = "\u2639 OOPS!!! You do not have any tasks in your list.\n";
         return error;
     }
+
+    public String printAddedExpense(Expense expense) {
+        String commandMsg = "Got it. I've added this expense:\n" + expense;
+        return commandMsg;
+    }
+
+    public String printNoOfExpenseInList(ExpenseList expenses) {
+        String statusOfList;
+        if (expenses.size() == 1) {
+            statusOfList = "Now you have 1 expense in the list.\n";
+        } else {
+            statusOfList = "Now you have " + expenses.size() + " expenses in the list.\n";
+        }
+        return statusOfList;
+    }
+
+    public String printAllExpenses(ExpenseList expenses) {
+        String listMsg = "Here are the expenses in your list:\n";
+        for (int i = 0; i < expenses.size(); i++) {
+            Expense task = expenses.get(i);
+            String expenseMsg = (i + 1) + ". " + task + "\n";
+            listMsg = listMsg + expenseMsg;
+        }
+        return listMsg;
+    }
+
+    public String showNoWhitespaceForExpenseDescription(String taskType) {
+        String error = "\u2639 OOPS!!! Please input a whitespace between the command '" + taskType +
+                "' and your expense type or description for me to keep track of it correctly :-)\n";
+        return error;
+    }
+
+    public String showNoWhitespaceForAmount() {
+        String error = "\u2639 OOPS!!! Please input a whitespace between the description '" +
+                "' and your amount spent for me to keep track of it correctly :-)\n";
+        return error;
+    }
+
+    public String printDeletedExpenseMsg(Expense expense) {
+        return "Noted. I've removed this expense:\n" + expense;
+    }
 }

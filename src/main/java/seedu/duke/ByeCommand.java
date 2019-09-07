@@ -30,6 +30,10 @@ public class ByeCommand extends Command {
         return ui.printGoodbyeMsg();
     }
 
+    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
+        return null;
+    }
+
     /**
      * Returns true to end Duke.
      * Prints goodbye message before returning.

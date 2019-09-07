@@ -6,6 +6,7 @@ package seedu.duke;
  */
 public class DeadlineCommand extends Command {
     private String command;
+    private static final String LIST_TYPE = "task";
 
     /**
      * Class constructor.
@@ -30,11 +31,19 @@ public class DeadlineCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         Parser.checkErrorForDeadlineCommand(command, tasks, ui);
         tasks.add(Parser.createDeadline(command));
+        if (tasks.size() > 1) {
+            storage.appendFile(tasks);
+        } else {
+            storage.writeFile(tasks);
+        }
 
-        storage.appendFile(tasks);
         assert tasks.size() >= 1 : "Task size invalid";
         return ui.printAddedTask(tasks.get(tasks.size() - 1)) + "\n" +
             ui.printNoOfTaskInList(tasks);
+    }
+
+    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
+        return null;
     }
 
     /**
@@ -44,6 +53,10 @@ public class DeadlineCommand extends Command {
      */
     public boolean isExit() {
         return false;
+    }
+
+    public String getListType() {
+        return LIST_TYPE;
     }
 
     /**
