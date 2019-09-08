@@ -41,6 +41,15 @@ public class EventCommand extends Command {
             ui.printNoOfTaskInList(tasks);
     }
 
+    /**
+     * Acts as a dummy execute for child of a <code>Command</code>
+     * This is used for a expense command.
+     *
+     * @param expenses TaskList currently.
+     * @param ui Ui initialized in <code>Duke</code> to interact with user.
+     * @param storage Storage to write/load/append to data file after updating tasks.
+     * @return String of goodbye message.
+     */
     public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
         return null;
     }
@@ -54,6 +63,11 @@ public class EventCommand extends Command {
         return false;
     }
 
+    /**
+     * Returns a string that indicates this task related command works on the task list.
+     *
+     * @return list type of task.
+     */
     public String getListType() {
         return LIST_TYPE;
     }

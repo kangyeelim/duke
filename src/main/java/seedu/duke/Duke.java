@@ -14,6 +14,10 @@ public class Duke {
     private Ui ui;
     private ExpenseList expenses;
 
+
+    /**
+     *Class constructor.
+     */
     public Duke() {}
 
     /**
@@ -48,10 +52,7 @@ public class Duke {
         }
     }
 
-    /**
-     * Loads data file into task list in Duke.
-     */
-    public void load() {
+    private void load() {
         ui = new Ui();
         storage = new Storage("data/duke.txt");
         expenseStorage = new Storage("data/expenses.txt");
@@ -65,7 +66,7 @@ public class Duke {
         }
     }
 
-    public String execute(Command c) throws Exception{
+    private String execute(Command c) throws Exception{
         if (c.getListType().equals("expense"))  {
             return c.execute(expenses, ui, expenseStorage);
         } else {

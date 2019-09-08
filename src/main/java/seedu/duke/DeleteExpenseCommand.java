@@ -27,10 +27,20 @@ public class DeleteExpenseCommand extends Command {
                 ui.printNoOfExpenseInList(expenses);
     }
 
+    /**
+     * Returns false to continue Duke.
+     *
+     * @return False
+     */
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Returns a string that indicates this expense related command works on the expense list.
+     *
+     * @return list type of expense.
+     */
     public String getListType() {
         return LIST_TYPE;
     }

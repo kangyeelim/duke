@@ -13,7 +13,7 @@ public class FindCommand extends Command {
     protected TaskList matchList;
     protected DateFormat outDateFormat = new SimpleDateFormat( "dd/MM/yyyy");
     protected DateFormat outTimeFormat = new SimpleDateFormat("H.mm aa");
-    private static final String LIST_TYPE = "task";
+    private static final String LIST_TYPE = "both";
 
     /**
      * Class constructor.
@@ -66,6 +66,15 @@ public class FindCommand extends Command {
         return ui.printAllMatchingTasks(matchList);
     }
 
+    /**
+     * Acts as a dummy execute for child of a <code>Command</code>
+     * This is used for a expense command.
+     *
+     * @param expenses TaskList currently.
+     * @param ui Ui initialized in <code>Duke</code> to interact with user.
+     * @param storage Storage to write/load/append to data file after updating tasks.
+     * @return String of goodbye message.
+     */
     public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
         return null;
     }
@@ -88,6 +97,11 @@ public class FindCommand extends Command {
         return false;
     }
 
+    /**
+     * Returns a string that indicates this command works on both list.
+     *
+     * @return list type of both.
+     */
     public String getListType() {
         return LIST_TYPE;
     }

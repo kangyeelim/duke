@@ -26,11 +26,20 @@ public class ExpenseCommand extends Command{
         return null;
     }
 
-    @Override
+    /**
+     * Returns false to continue Duke.
+     *
+     * @return False
+     */
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Returns a string that indicates this expense related command works on the expense list.
+     *
+     * @return list type of expense.
+     */
     public String getListType() {
         return LIST_TYPE;
     }

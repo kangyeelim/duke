@@ -1,7 +1,7 @@
 package seedu.duke;
 
 public class HelpCommand extends Command {
-    private static final String LIST_TYPE = "any";
+    private static final String LIST_TYPE = "none";
 
     public HelpCommand() {
 
@@ -29,11 +29,21 @@ public class HelpCommand extends Command {
     public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
         return null;
     }
-
+    
+    /**
+     * Returns false to continue Duke.
+     *
+     * @return False
+     */
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Returns a string that indicates this command is non-specific to any list type.
+     *
+     * @return list type of none.
+     */
     public String getListType() {
         return LIST_TYPE;
     }
