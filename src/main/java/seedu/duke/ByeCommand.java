@@ -7,7 +7,6 @@ package seedu.duke;
 public class ByeCommand extends Command {
     private String command;
     private Ui ui;
-    private static final String LIST_TYPE = "any";
 
     /**
      * Class constructor.
@@ -22,26 +21,15 @@ public class ByeCommand extends Command {
      * Executes the command.
      *
      * @param tasks TaskList currently.
+     * @param expenses ExpenseList currently.
      * @param ui Ui initialized in <code>Duke</code> to interact with user.
-     * @param storage Storage to write/load/append to data file after updating tasks.
+     * @param taskStorage Storage to write/load/append to data file after updating tasks.
+     * @param expenseStorage Storage to write/load/append to data file aftering updating expenses.
      * @return String of goodbye message.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, ExpenseList expenses, Ui ui, Storage taskStorage, Storage expenseStorage) {
         this.ui = ui;
         return ui.printGoodbyeMsg();
-    }
-
-    /**
-     * Acts as a dummy execute for child of a <code>Command</code>
-     * This is used for a expense command.
-     *
-     * @param expenses TaskList currently.
-     * @param ui Ui initialized in <code>Duke</code> to interact with user.
-     * @param storage Storage to write/load/append to data file after updating tasks.
-     * @return String of goodbye message.
-     */
-    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
-        return null;
     }
 
     /**
@@ -52,15 +40,6 @@ public class ByeCommand extends Command {
      */
     public boolean isExit() {
         return true;
-    }
-
-    /**
-     * Returns a string that indicates this task related command works on the task list.
-     *
-     * @return list type of task.
-     */
-    public String getListType() {
-        return LIST_TYPE;
     }
 
     /**

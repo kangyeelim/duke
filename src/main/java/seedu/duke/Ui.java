@@ -299,4 +299,35 @@ public class Ui {
     public String printDeletedExpenseMsg(Expense expense) {
         return "Noted. I've removed this expense:\n" + expense;
     }
+
+    /**
+     * Returns message of that there is no expense number inputted.
+     *
+     * @return String of message.
+     */
+    public String showNoExpenseNumber() {
+        String error = "\u2639 OOPS!!! Please input the expense number you would like to mark as done.\n";
+        return error;
+    }
+
+    /**
+     * Returns message of that there is no expenses in list.
+     *
+     * @return String of message.
+     */
+    public String showNoExpenseInList() {
+        String error = "\u2639 OOPS!!! You do not have any expenses in your list.\n";
+        return error;
+    }
+
+    /**
+     * Returns message of that there is no such expense according to number inputted.
+     *
+     * @return String of message.
+     */
+    public String showNoSuchExpense() {
+        String error = "\u2639 OOPS!!! You do not have that expense in your list. " +
+                "Call 'list' to see all your tasks :-)\n";
+        return error;
+    }
 }

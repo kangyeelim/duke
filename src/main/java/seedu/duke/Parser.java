@@ -10,6 +10,7 @@ import java.util.Date;
  * and calls the command to be executed.
  */
 public class Parser {
+
     protected static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     protected static SimpleDateFormat timeFormat = new SimpleDateFormat("HHmm");
     protected static SimpleDateFormat dashDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -23,6 +24,7 @@ public class Parser {
     private static final int CHAR_LENGTH_OF_DELETE = 6;
     private static final int CHAR_LENGTH_OF_LIST = 4;
     private static final int CHAR_LENGTH_OF_EXPENSE = 7;
+    private static final int CHAR_LENGTH_OF_DELETE_E = 8 ;
     /**
      * Class constructor.
      */
@@ -537,5 +539,26 @@ public class Parser {
 
     public static boolean isHelpCommand(String command) {
         return command.length() == 4 && command.equals("help");
+    }
+
+    public static void checkErrorForDeleteExpenseCommand(String command, ExpenseList expenses, Ui ui) throws DukeException {
+        if (command.contains(" ")) {
+            //throw exception for no task number and there is just trailing whitespaces
+            String res = command.replace(" ", "");
+            if (res.length() == CHAR_LENGTH_OF_DELETE_E - 1) {
+                throw new DukeException(ui.showNoExpenseNumber());
+            }
+        } else if (command.length() == CHAR_LENGTH_OF_DELETE_E) {
+            //throw exception for no task number
+            throw new DukeException(ui.showNoExpenseNumber());
+        }
+        int curr = Parser.expenseToDelete(command);
+        if (expenses.size() == 0) {
+            //check if list has no task to throw exception
+            throw new DukeException(ui.showNoExpenseInList());
+        } else if (curr > expenses.size()) {
+            //check if index is within list size or throw exception
+            throw new DukeException(ui.showNoSuchExpense());
+        }
     }
 }

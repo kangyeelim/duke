@@ -1,14 +1,24 @@
 package seedu.duke;
 
 public class HelpCommand extends Command {
-    private static final String LIST_TYPE = "none";
 
     public HelpCommand() {
 
     }
 
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        String instructions = "Let me teach you how to use me:\n" +
+    /**
+     * Executes the command by checking exceptions,
+     * and printing out what has been done
+     *
+     * @param tasks  TaskList of all tasks currently.
+     * @param expenses ExpenseList of all expenses currently.
+     * @param ui Ui that interacts with user by checking for exceptions and printing out
+     *           executed tasks.
+     * @param taskStorage Storage that load/write or append to data file after updating tasks.
+     * @param expenseStorage Storage that load/write or append to data file after updating expenses.
+     */
+    public String execute(TaskList tasks, ExpenseList expenses, Ui ui, Storage taskStorage, Storage expenseStorage) {
+        String instructions = /*"Let me teach you how to use me:\n" +
                 "FOR TASK MANAGING:\n" +
                 "To add a todo to your list: enter 'todo [one-word task description]'\n" +
                 "To add a deadline to your list: enter 'deadline [one-word task description] /by " +
@@ -22,14 +32,13 @@ public class HelpCommand extends Command {
                 "To add expense to expense list: enter 'expense [one-word expense description] " +
                 "[cost without currency]'\n" +
                 "To see all expenses: enter 'elist'\n" +
-                "To delete expense from expense list: enter 'delete e[index in expense list]'\n";
+                "To delete expense from expense list: enter 'delete e[index in expense list]'\n";*/
+        "help";
+
+
         return instructions;
     }
 
-    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
-        return null;
-    }
-    
     /**
      * Returns false to continue Duke.
      *
@@ -37,14 +46,5 @@ public class HelpCommand extends Command {
      */
     public boolean isExit() {
         return false;
-    }
-
-    /**
-     * Returns a string that indicates this command is non-specific to any list type.
-     *
-     * @return list type of none.
-     */
-    public String getListType() {
-        return LIST_TYPE;
     }
 }

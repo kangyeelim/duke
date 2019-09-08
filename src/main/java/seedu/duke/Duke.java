@@ -14,9 +14,8 @@ public class Duke {
     private Ui ui;
     private ExpenseList expenses;
 
-
     /**
-     *Class constructor.
+     * Class constructor.
      */
     public Duke() {}
 
@@ -40,7 +39,7 @@ public class Duke {
     public String run(String input) {
         try {
             Command c = Parser.parse(input, ui);
-            return execute(c);
+            return c.execute(tasks, expenses, ui, storage, expenseStorage);
         } catch (DukeException e) {
             return e.toString();
         } catch (ParseException e) {
@@ -52,7 +51,10 @@ public class Duke {
         }
     }
 
-    private void load() {
+    /**
+     * Loads data file into task list in Duke.
+     */
+    public void load() {
         ui = new Ui();
         storage = new Storage("data/duke.txt");
         expenseStorage = new Storage("data/expenses.txt");
@@ -62,15 +64,7 @@ public class Duke {
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
-            //expenses = new ExpenseList();
-        }
-    }
-
-    private String execute(Command c) throws Exception{
-        if (c.getListType().equals("expense"))  {
-            return c.execute(expenses, ui, expenseStorage);
-        } else {
-            return c.execute(tasks, ui, storage);
+            expenses = new ExpenseList();
         }
     }
 }

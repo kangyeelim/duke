@@ -1,2 +1,3 @@
-T | 0 | hw
 D | 0 | studyFor2101 | 09/09/2019 2359
+T | 0 | homework
+E | 0 | cs2103tMeeting | 09/09/2019 1000

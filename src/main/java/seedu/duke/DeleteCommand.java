@@ -6,7 +6,6 @@ package seedu.duke;
  */
 public class DeleteCommand extends Command {
     private String command;
-    private static final String LIST_TYPE = "task";
 
     /**
      * Class constructor.
@@ -18,22 +17,26 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the command after checking for exceptions.
-     * Prints the message all the tasks in list with task information.
+     * Executes the command by checking exceptions,
+     * and printing out what has been done
      *
-     * @param tasks TaskList currently.
-     * @param ui Ui initialized in <code>Duke</code> to interact with user.
-     * @param storage Storage to append to data file after updating tasks.
-     * @throws DukeException If there is incorrect user input.
-     * @throws Exception If unable to overwrite data file
+     * @param tasks  TaskList of all tasks currently.
+     * @param expenses ExpenseList of all expenses currently.
+     * @param ui Ui that interacts with user by checking for exceptions and printing out
+     *           executed tasks.
+     * @param taskStorage Storage that load/write or append to data file after updating tasks.
+     * @param expenseStorage Storage that load/write or append to data file after updating expenses.
+     * @throws DukeException  If there is incorrect user input format.
+     * @throws java.io.IOException If there is problems reading/writing or appending to file.
+     * @throws Exception If there is problems with Parser reading in file line.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList tasks, ExpenseList expenses, Ui ui, Storage taskStorage, Storage expenseStorage) throws Exception {
         Parser.checkErrorForDeleteCommand(command, tasks, ui);
         int curr = Parser.taskToDelete(command);
         assert curr > 0 : "Task num is not valid";
         Task deletedTask = tasks.get(curr - 1);
         tasks.remove(curr - 1);
-        storage.writeFile(tasks);
+        taskStorage.writeFile(tasks);
         return ui.printDeletedTaskMsg(deletedTask) + "\n" +
             ui.printNoOfTaskInList(tasks);
     }
@@ -58,15 +61,6 @@ public class DeleteCommand extends Command {
      */
     public boolean isExit() {
         return false;
-    }
-
-    /**
-     * Returns a string that indicates this task related command works on the task list.
-     *
-     * @return list type of task.
-     */
-    public String getListType() {
-        return LIST_TYPE;
     }
 
     /**

@@ -6,7 +6,6 @@ package seedu.duke;
  */
 public class MarkDoneCommand extends Command {
     private String command;
-    private static final String LIST_TYPE = "task";
 
     /**
      * Class constructor.
@@ -17,37 +16,29 @@ public class MarkDoneCommand extends Command {
         this.command = command;
     }
 
+
     /**
-     * Executes the command after checking for exceptions.
-     * Prints the message with the task information and number of tasks in list.
-     * Tick is printed for the task.
+     * Executes the command by checking exceptions,
+     * and printing out what has been done
      *
-     * @param tasks TaskList currently.
-     * @param ui Ui initialized in <code>Duke</code> to interact with user.
-     * @param storage Storage to overwrite data file after updating task as done.
-     * @throws DukeException If there is incorrect user input.
-     * @throws Exception If unable to overwrite data file.
+     * @param tasks  TaskList of all tasks currently.
+     * @param expenses ExpenseList of all expenses currently.
+     * @param ui Ui that interacts with user by checking for exceptions and printing out
+     *           executed tasks.
+     * @param taskStorage Storage that load/write or append to data file after updating tasks.
+     * @param expenseStorage Storage that load/write or append to data file after updating expenses.
+     * @throws DukeException  If there is incorrect user input format.
+     * @throws java.io.IOException If there is problems reading/writing or appending to file.
+     * @throws Exception If there is problems with Parser reading in file line.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList tasks, ExpenseList expenses, Ui ui,
+                          Storage taskStorage, Storage expenseStorage) throws Exception {
         Parser.checkMarkDoneError(command, tasks, ui);
         int curr = Parser.taskToMarkDone(command);
         tasks.get(curr - 1).markAsDone();
         assert curr > 0 : "task number invalid";
-        storage.writeFile(tasks);
+        taskStorage.writeFile(tasks);
         return ui.printMarkDoneMsg(tasks.get(curr - 1));
-    }
-
-    /**
-     * Acts as a dummy execute for child of a <code>Command</code>
-     * This is used for a expense command.
-     *
-     * @param expenses TaskList currently.
-     * @param ui Ui initialized in <code>Duke</code> to interact with user.
-     * @param storage Storage to write/load/append to data file after updating tasks.
-     * @return String of goodbye message.
-     */
-    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
-        return null;
     }
 
     /**
@@ -57,15 +48,6 @@ public class MarkDoneCommand extends Command {
      */
     public boolean isExit() {
         return false;
-    }
-
-    /**
-     * Returns a string that indicates this task related command works on the task list.
-     *
-     * @return list type of task.
-     */
-    public String getListType() {
-        return LIST_TYPE;
     }
 
     @Override

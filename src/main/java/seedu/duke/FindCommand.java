@@ -13,7 +13,6 @@ public class FindCommand extends Command {
     protected TaskList matchList;
     protected DateFormat outDateFormat = new SimpleDateFormat( "dd/MM/yyyy");
     protected DateFormat outTimeFormat = new SimpleDateFormat("H.mm aa");
-    private static final String LIST_TYPE = "both";
 
     /**
      * Class constructor.
@@ -25,16 +24,21 @@ public class FindCommand extends Command {
         matchList = new TaskList();
     }
 
+
     /**
-     * Executes the command after checking for exceptions.
-     * Prints the information and number of tasks that match keyword from all tasks.
+     * Executes the command by checking exceptions,
+     * and printing out what has been done
      *
-     * @param tasks TaskList currently.
-     * @param ui Ui initialized in <code>Duke</code> to interact with user.
-     * @param storage Storage to append to data file after updating tasks.
-     * @throws DukeException Exception for incorrect user input.
+     * @param tasks  TaskList of all tasks currently.
+     * @param expenses ExpenseList of all expenses currently.
+     * @param ui Ui that interacts with user by checking for exceptions and printing out
+     *           executed tasks.
+     * @param taskStorage Storage that load/write or append to data file after updating tasks.
+     * @param expenseStorage Storage that load/write or append to data file after updating expenses.
+     * @throws DukeException  If there is incorrect user input format.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, ExpenseList expenses, Ui ui,
+                          Storage taskStorage, Storage expenseStorage) throws DukeException {
         Parser.checkErrorForFindCommand(command, ui);
         String keyword = Parser.getKeyword(command);
         for (int i = 0; i < tasks.size(); i++) {
@@ -67,19 +71,6 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Acts as a dummy execute for child of a <code>Command</code>
-     * This is used for a expense command.
-     *
-     * @param expenses TaskList currently.
-     * @param ui Ui initialized in <code>Duke</code> to interact with user.
-     * @param storage Storage to write/load/append to data file after updating tasks.
-     * @return String of goodbye message.
-     */
-    public String execute(ExpenseList expenses, Ui ui, Storage storage) throws Exception {
-        return null;
-    }
-
-    /**
      * Returns tasklist of all tasks currently that match the keyword.
      *
      * @return TaskList of all tasks matching keyword
@@ -95,14 +86,5 @@ public class FindCommand extends Command {
      */
     public boolean isExit() {
         return false;
-    }
-
-    /**
-     * Returns a string that indicates this command works on both list.
-     *
-     * @return list type of both.
-     */
-    public String getListType() {
-        return LIST_TYPE;
     }
 }
