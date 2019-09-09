@@ -2,6 +2,9 @@ package seedu.duke;
 
 public class HelpCommand extends Command {
 
+    /**
+     * Class constructor.
+     */
     public HelpCommand() {
 
     }
@@ -18,24 +21,21 @@ public class HelpCommand extends Command {
      * @param expenseStorage Storage that load/write or append to data file after updating expenses.
      */
     public String execute(TaskList tasks, ExpenseList expenses, Ui ui, Storage taskStorage, Storage expenseStorage) {
-        String instructions = /*"Let me teach you how to use me:\n" +
+        String instructions = "Let me teach you how to use me:\n\n" +
                 "FOR TASK MANAGING:\n" +
-                "To add a todo to your list: enter 'todo [one-word task description]'\n" +
-                "To add a deadline to your list: enter 'deadline [one-word task description] /by " +
-                "[date dd/MM/yyyy] [time in 24 hr (HHmm) or 12hr format (HH.mm AM/PM)]'\n" +
-                "To add an event to your list: enter 'event [one-word task description /at " +
-                "[date dd/MM/yyyy] [time in 24 hr (HHmm) or 12hr format (HH.mm AM/PM)]'\n" +
-                "To see list of tasks: enter 'list'\n" +
-                "To delete task from list: enter 'delete [index in list]'\n" +
-                "To find task by a single keyword: enter 'find [keyword]'" +
+                "1. To add a todo to your list: enter 'todo [description]'\n" +
+                "2. To add a deadline to your list: enter 'deadline [description] /by " +
+                "[date] [time]'\n" +
+                "3. To add an event to your list: enter 'event [description] /at " +
+                "[date] [time]'\n" +
+                "4. To see list of tasks: enter 'list'\n" +
+                "5. To delete task from list: enter 'delete [index]'\n" +
+                "6. To find task by a single keyword: enter 'find [keyword]'\n\n" +
                 "FOR EXPENSE TRACKING:\n" +
-                "To add expense to expense list: enter 'expense [one-word expense description] " +
-                "[cost without currency]'\n" +
-                "To see all expenses: enter 'elist'\n" +
-                "To delete expense from expense list: enter 'delete e[index in expense list]'\n";*/
-        "help";
-
-
+                "1. To add expense to expense list: enter 'expense [description] " +
+                "[cost]'\n" +
+                "2. To see all expenses: enter 'elist'\n" +
+                "3. To delete expense from expense list: enter 'delete e[index]'\n";
         return instructions;
     }
 

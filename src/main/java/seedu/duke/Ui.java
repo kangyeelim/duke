@@ -259,11 +259,21 @@ public class Ui {
         return error;
     }
 
+    /**
+     * Returns message of all the expenses in the list.
+     *
+     * @return String of message.
+     */
     public String printAddedExpense(Expense expense) {
         String commandMsg = "Got it. I've added this expense:\n" + expense;
         return commandMsg;
     }
 
+    /**
+     * Returns message of the number of expenses and total expenditure.
+     *
+     * @return String of message.
+     */
     public String printNoOfExpenseInList(ExpenseList expenses) {
         String statusOfList;
         if (expenses.size() == 1) {
@@ -271,9 +281,20 @@ public class Ui {
         } else {
             statusOfList = "Now you have " + expenses.size() + " expenses in the list.\n";
         }
-        return statusOfList;
+        //todo adding of expenses
+        double sum = 0;
+        for (int i = 0; i < expenses.size(); i++) {
+            sum = sum + expenses.get(i).getAmount();
+        }
+        String totalAmount = "The total expenditure is now: " + sum + "\n";
+        return statusOfList + totalAmount;
     }
 
+    /**
+     * Returns message of all the expenses in the list and total expenditure.
+     *
+     * @return String of message.
+     */
     public String printAllExpenses(ExpenseList expenses) {
         String listMsg = "Here are the expenses in your list:\n";
         for (int i = 0; i < expenses.size(); i++) {
@@ -281,21 +302,41 @@ public class Ui {
             String expenseMsg = (i + 1) + ". " + task + "\n";
             listMsg = listMsg + expenseMsg;
         }
-        return listMsg;
+        double sum = 0;
+        for (int i = 0; i < expenses.size(); i++) {
+            sum = sum + expenses.get(i).getAmount();
+        }
+        String totalAmount = "Total expenditure: " + sum + "\n";
+        return listMsg + totalAmount;
     }
 
+    /**
+     * Returns exception message for wrong format for expense input.
+     *
+     * @return String of message.
+     */
     public String showNoWhitespaceForExpenseDescription(String taskType) {
         String error = "\u2639 OOPS!!! Please input a whitespace between the command '" + taskType +
                 "' and your expense type or description for me to keep track of it correctly :-)\n";
         return error;
     }
 
+    /**
+     * Returns message of that there is wrong whitespace input for amount for expense.
+     *
+     * @return String of message.
+     */
     public String showNoWhitespaceForAmount() {
         String error = "\u2639 OOPS!!! Please input a whitespace between the description '" +
                 "' and your amount spent for me to keep track of it correctly :-)\n";
         return error;
     }
 
+    /**
+     * Returns message of that the expense is removed from list.
+     *
+     * @return String of message.
+     */
     public String printDeletedExpenseMsg(Expense expense) {
         return "Noted. I've removed this expense:\n" + expense;
     }
